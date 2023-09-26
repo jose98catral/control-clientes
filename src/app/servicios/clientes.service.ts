@@ -28,4 +28,29 @@ getClientes(): Observable<Cliente[]>{
     );
     return this.clientes
 }
+agregarCliente(cliente: Cliente){
+this.clientesColeccion.add(cliente);
+}
+getCliente(id: string): Observable<Cliente | null> {
+    this.clientesDoc = this.db.doc<Cliente>(`clientes/${id}`);
+    return this.clientesDoc.snapshotChanges().pipe(
+      map(accion => {
+        if (accion.payload.exists === false) {
+          return null;
+        } else {
+          const datos = accion.payload.data() as Cliente;
+          datos.id = accion.payload.id;
+          return datos;
+        }
+      })
+    );
+  }
+  modificarCliente(cliente: Cliente){
+    this.clientesDoc = this.db.doc(`clientes/${cliente.id}`);
+    this.clientesDoc.update(cliente);
+  }
+  eliminarCliente(cliente: Cliente){
+    this.clientesDoc = this.db.doc(`clientes/${cliente.id}`);
+    this.clientesDoc.delete();
+  }
 }

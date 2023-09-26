@@ -7,6 +7,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { AngularFirestoreModule} from '@angular/fire/compat/firestore'
 
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './componentes/header/header.component';
@@ -19,6 +20,9 @@ import { ConfiguracionComponent } from './componentes/configuracion/configuracio
 import { NoEncontradoComponent } from './componentes/no-encontrado/no-encontrado.component';
 import { PiePaginaComponent } from './componentes/pie-pagina/pie-pagina.component';
 import { ClienteServicio } from './servicios/clientes.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { LoginService } from './servicios/login.service';
 
 @NgModule({
   declarations: [
@@ -33,6 +37,7 @@ import { ClienteServicio } from './servicios/clientes.service';
     NoEncontradoComponent,
     PiePaginaComponent,
     
+    
   ],
   imports: [
     BrowserModule,
@@ -40,11 +45,14 @@ import { ClienteServicio } from './servicios/clientes.service';
     FormsModule,
     AngularFireModule.initializeApp(environment.firestore),
     AngularFirestoreModule,
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    BrowserAnimationsModule,
+    MatSnackBarModule,
+   
     
   
   ],
-  providers: [ClienteServicio],
+  providers: [ClienteServicio,LoginService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
